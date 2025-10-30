@@ -29,7 +29,7 @@ const Candle = ({ lit, onClick }: { lit: boolean; onClick: () => void }) => (
 );
 
 const BirthdayCake = () => (
-    <div className="relative w-full max-w-sm h-24 bg-pink-200 rounded-lg shadow-md">
+    <div className="relative w-full max-w-lg h-32 bg-pink-200 rounded-lg shadow-md">
         <div className="absolute -bottom-4 w-full h-8 bg-pink-300 rounded-b-lg"></div>
         <div className="absolute top-1/2 left-0 w-full h-4 bg-pink-100/50 -translate-y-1/2"></div>
     </div>
@@ -76,7 +76,7 @@ export default function BlowTheCandle() {
       <h2 className="font-headline text-3xl md:text-4xl text-center mb-8">
         Make a Wish!
       </h2>
-      <Card className="max-w-2xl mx-auto bg-card/80 backdrop-blur-sm shadow-lg">
+      <Card className="max-w-3xl mx-auto bg-card/80 backdrop-blur-sm shadow-lg">
         <CardContent className="p-4 sm:p-8 pt-10 flex flex-col items-center justify-center">
           {wishMade ? (
             <div className="text-center">
@@ -95,7 +95,7 @@ export default function BlowTheCandle() {
                 Click the candles or the button to make your birthday wish!
               </p>
               <div className="relative mb-8 mt-10">
-                  <div className="relative flex items-end justify-center gap-1 w-full max-w-xs sm:max-w-sm px-2 mb-2">
+                  <div className="relative flex items-end justify-center gap-2.5 w-full max-w-lg px-2 mb-2">
                       {candles.map((lit, index) => (
                         <Candle key={index} lit={lit} onClick={() => toggleCandle(index)} />
                       ))}
