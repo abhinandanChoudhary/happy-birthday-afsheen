@@ -32,7 +32,10 @@ const nextConfig: NextConfig = {
   },
   webpack: (config, { isServer }) => {
     if (!isServer) {
-      config.externals.push("@opentelemetry/context-async-hooks");
+      config.resolve.alias = {
+        ...config.resolve.alias,
+        'async_hooks': false,
+      };
     }
     return config;
   },

@@ -1,0 +1,50 @@
+diff --git a/node_modules/@opentelemetry/context-async-hooks/build/src/AsyncHooksContextManager.js b/node_modules/@opentelemetry/context-async-hooks/build/src/AsyncHooksContextManager.js
+index 2853d9e..b95349f 100644
+--- a/node_modules/@opentelemetry/context-async-hooks/build/src/AsyncHooksContextManager.js
++++ b/node_modules/@opentelemetry/context-async-hooks/build/src/AsyncHooksContextManager.js
+@@ -17,7 +17,13 @@
+  * limitations under the License.
+  */
+ Object.defineProperty(exports, "__esModule", { value: true });
+-exports.AsyncHooksContextManager = void 0;
+-const api_1 = require("@opentelemetry/api");
+-const asyncHooks = require("async_hooks");
+-const AbstractAsyncHooksContextManager_1 = require("./AbstractAsyncHooksContextManager");
+-class AsyncHooksContextManager extends AbstractAsyncHooksContextManager_1.AbstractAsyncHooksContextManager {
+-    constructor() {
+-        super();
+-        this._asyncHook = asyncHooks.createHook({
+-            init: (asyncId, type, triggerAsyncId, resource) => {
+-                this._init(asyncId, type, triggerAsyncId, resource);
+-            },
+-            before: (asyncId) => {
+-                this._before(asyncId);
+-            },
+-            after: (asyncId) => {
+-                this._after(asyncId);
+-            },
+-            destroy: (asyncId) => {
+-                this._destroy(asyncId);
+-            },
+-        });
+-    }
+-    _enable() {
+-        this._asyncHook.enable();
+-        return this;
+-    }
+-    _disable() {
+-        this._asyncHook.disable();
+-        return this;
+-    }
+-}
+-exports.AsyncHooksContextManager = AsyncHooksContextManager;
++exports.AsyncHooksContextManager = void 0
++const api_1 = require('@opentelemetry/api')
++const AbstractAsyncHooksContextManager_1 = require('./AbstractAsyncHooksContextManager')
++
++class AsyncHooksContextManager extends AbstractAsyncHooksContextManager_1.AbstractAsyncHooksContextManager {
++  _enable() { return this; }
++  _disable() { return this; }
++}
++
++exports.AsyncHooksContextManager = AsyncHooksContextManager
