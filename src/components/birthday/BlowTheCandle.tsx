@@ -4,6 +4,7 @@ import { useState, useMemo } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Wind, PartyPopper, Cake as CakeIcon } from 'lucide-react';
+import Balloon from './Balloon';
 
 const Candle = ({ lit, onClick }: { lit: boolean; onClick: () => void }) => (
   <div
@@ -61,7 +62,17 @@ export default function BlowTheCandle() {
   }
 
   return (
-    <section className="w-full px-4">
+    <section className="w-full px-4 relative">
+        <Balloon
+            color="hsl(var(--primary) / 0.7)"
+            className="top-[5%] left-[2%] w-24 h-auto"
+            style={{ animationDelay: '1s' }}
+        />
+        <Balloon
+            color="hsl(var(--accent) / 0.8)"
+            className="top-[10%] right-[5%] w-32 h-auto"
+            style={{ animationDelay: '3s' }}
+        />
       <h2 className="font-headline text-3xl md:text-4xl text-center mb-8">
         Make a Wish!
       </h2>
