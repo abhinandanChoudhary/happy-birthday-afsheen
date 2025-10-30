@@ -7,7 +7,7 @@ import { Gift, Heart } from 'lucide-react';
 
 export default function BirthdayCard({ onReset }: { onReset: () => void }) {
   return (
-    <Card className="bg-card/90 backdrop-blur-md shadow-lg w-full min-h-[450px] flex flex-col">
+    <Card className="bg-card/90 backdrop-blur-md shadow-lg w-full h-full flex flex-col">
       <CardHeader className="text-center">
         <CardTitle className="font-headline text-3xl flex items-center justify-center gap-2">
           <Gift className="text-primary" />

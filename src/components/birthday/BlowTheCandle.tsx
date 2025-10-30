@@ -113,20 +113,20 @@ export default function BlowTheCandle({ onCandlesBlown }: { onCandlesBlown: () =
         className="top-[10%] right-[5%] w-32 h-auto"
         style={{ animationDelay: '3s' }}
       />
-      <h2 className="font-headline text-3xl md:text-4xl text-center mb-8">
+      <h2 className="font-headline text-3xl md:text-4xl text-center mb-4 sm:mb-8">
         Make a Wish!
       </h2>
-      <div className="max-w-3xl mx-auto perspective-1000">
+      <div className="max-w-3xl w-full mx-auto perspective-1000">
         <div className={cn("relative w-full transition-transform duration-1000 transform-style-3d", wishMade && "rotate-y-180")}>
             {/* Front of the card - The Cake */}
             <div className="absolute w-full h-full backface-hidden">
-                <Card className="bg-card/80 backdrop-blur-sm shadow-lg min-h-[450px]">
-                    <CardContent className="p-4 sm:p-6 flex flex-col items-center justify-between">
-                        <p className="text-muted-foreground mt-4 text-center font-body">
+                <Card className="bg-card/80 backdrop-blur-sm shadow-lg">
+                    <CardContent className="p-4 sm:p-6 flex flex-col items-center justify-around h-full">
+                        <p className="text-muted-foreground mt-2 text-center font-body">
                             Click the candles or the button to make your birthday wish!
                         </p>
-                        <div className="relative my-4">
-                            <div className="relative flex items-end justify-center gap-0.5 w-full max-w-xs px-1 mb-2 scale-90">
+                        <div className="relative my-2 sm:my-4">
+                            <div className="relative flex items-end justify-center gap-0.5 w-full max-w-xs px-1 mb-2 scale-75">
                                 {candles.map((lit, index) => (
                                 <Candle
                                     key={index}
