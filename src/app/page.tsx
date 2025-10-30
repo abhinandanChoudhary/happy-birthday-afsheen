@@ -41,7 +41,7 @@ export default function Home() {
   return (
     <>
       <ConfettiCanvas />
-      <div className="relative min-h-dvh flex flex-col items-center justify-center overflow-hidden">
+      <div className="relative min-h-dvh flex flex-col items-center justify-center overflow-hidden bg-gradient-to-b from-blue-900 via-purple-900 to-slate-900">
         
         <div className={`w-full h-dvh flex items-center justify-center transition-opacity duration-1000 ${isTransitioning ? 'opacity-0' : 'opacity-100'}`}>
             {CurrentComponent}
