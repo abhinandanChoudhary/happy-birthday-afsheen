@@ -20,7 +20,9 @@ export default function BirthdayCard({ onReset, onContinue }: { onReset: () => v
           Pen down your heartfelt wishes for Afsheen...
         </p>
         <Textarea
-          placeholder="Write your birthday message here..."
+          defaultValue="It's probably no secret that I think you're pretty amazing hehe 🐼. But what I really want you to know on your birthday is how much I genuinely care about you.
+Seeing you happy is one of the best things, and I truly hope this day is as wonderful as you are.
+I hope your 17th year is filled with all the success, fun, and happiness you deserve. I'll always be someone rooting for you, no matter what! 💌"
           className="flex-grow resize-none bg-background/50 border-border text-lg font-body"
         />
         <div className="flex flex-col sm:flex-row gap-4 items-center justify-between mt-6">
