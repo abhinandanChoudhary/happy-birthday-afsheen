@@ -30,15 +30,6 @@ const nextConfig: NextConfig = {
       },
     ],
   },
-  webpack: (config, { isServer }) => {
-    if (!isServer) {
-      config.resolve.alias = {
-        ...config.resolve.alias,
-        'async_hooks': false,
-      };
-    }
-    return config;
-  },
 };
 
 export default nextConfig;
