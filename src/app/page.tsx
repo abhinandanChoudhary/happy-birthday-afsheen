@@ -1,16 +1,16 @@
 'use client';
 
 import { useState, useTransition, useEffect } from 'react';
+import Hero from '@/components/birthday/Hero';
 import SurpriseAhead from '@/components/birthday/SurpriseAhead';
 import BlowTheCandle from '@/components/birthday/BlowTheCandle';
 import ConfettiCanvas from '@/components/birthday/ConfettiCanvas';
 import HeartfeltAffirmations from '@/components/birthday/HeartfeltAffirmations';
-import PersonalizedMessage from '@/components/birthday/PersonalizedMessage';
 import WishingTree from '@/components/birthday/WishingTree';
 
 const sections = [
+  { component: <Hero />, id: 'hero' },
   { component: <SurpriseAhead />, id: 'surprise' },
-  { component: <PersonalizedMessage />, id: 'message' },
   { component: <BlowTheCandle />, id: 'candle' },
   { component: <WishingTree />, id: 'tree' },
   { component: <HeartfeltAffirmations />, id: 'affirmations' },
