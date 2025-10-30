@@ -26,9 +26,9 @@ const MagicalBackground = () => (
       <div className="absolute -bottom-1/4 -right-1/4 w-[150%] h-[150%] bg-gradient-to-bl from-accent/30 via-transparent to-primary/30 rounded-full animate-wave-reverse"></div>
     </div>
     {/* Sparkles */}
-    {[...Array(30)].map((_, i) => (
+    {[...Array(50)].map((_, i) => (
         <div key={`sparkle-${i}`}
-             className="absolute w-1 h-1 bg-secondary rounded-full animate-sparkle"
+             className="absolute w-1.5 h-1.5 bg-secondary/80 rounded-full animate-sparkle"
              style={{
                 top: `${Math.random() * 100}%`,
                 left: `${Math.random() * 100}%`,
@@ -38,16 +38,16 @@ const MagicalBackground = () => (
         />
     ))}
     {/* Bokeh */}
-    {[...Array(15)].map((_, i) => (
+    {[...Array(25)].map((_, i) => (
         <div key={`bokeh-${i}`}
             className="absolute bg-primary/20 rounded-full animate-float"
             style={{
                 top: `${Math.random() * 100}%`,
                 left: `${Math.random() * 100}%`,
-                width: `${Math.random() * 100 + 50}px`,
-                height: `${Math.random() * 100 + 50}px`,
+                width: `${Math.random() * 120 + 60}px`,
+                height: `${Math.random() * 120 + 60}px`,
                 animationDelay: `${Math.random() * 10}s`,
-                animationDuration: `${Math.random() * 10 + 15}s`,
+                animationDuration: `${Math.random() * 12 + 18}s`,
             }}
         />
     ))}
