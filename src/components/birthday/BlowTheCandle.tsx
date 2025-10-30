@@ -5,6 +5,8 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Wind, PartyPopper, Cake as CakeIcon } from 'lucide-react';
 import Balloon from './Balloon';
+import BirthdayCard from './BirthdayCard';
+import { cn } from '@/lib/utils';
 
 const Candle = ({
   lit,
@@ -37,7 +39,7 @@ const Candle = ({
   </div>
 );
 
-const BirthdayCake = () => (
+const Cake = () => (
   <div className="relative w-full max-w-xs h-24 bg-pink-200 rounded-lg shadow-md flex items-center justify-center">
     <div className="absolute -bottom-4 w-full h-8 bg-pink-300 rounded-b-lg"></div>
     <div className="absolute top-1/2 left-0 w-full h-4 bg-pink-100/50 -translate-y-1/2"></div>
@@ -71,7 +73,7 @@ export default function BlowTheCandle() {
   useEffect(() => {
     if (allCandlesOut && !wishMade) {
       triggerConfettiBurst();
-      const timer = setTimeout(() => setWishMade(true), 1000); // Wait for smoke animation
+      const timer = setTimeout(() => setWishMade(true), 500); // Short delay for flip
       return () => clearTimeout(timer);
     }
   }, [allCandlesOut, wishMade]);
@@ -82,8 +84,11 @@ export default function BlowTheCandle() {
 
 
   const handleReset = () => {
-    setCandles(Array(17).fill(true));
     setWishMade(false);
+    // Add a small delay to allow the card to flip back before re-lighting
+    setTimeout(() => {
+      setCandles(Array(17).fill(true));
+    }, 800);
   };
 
   const toggleCandle = (index: number) => {
@@ -107,45 +112,42 @@ export default function BlowTheCandle() {
       <h2 className="font-headline text-3xl md:text-4xl text-center mb-8">
         Make a Wish!
       </h2>
-      <Card className="max-w-3xl mx-auto bg-card/80 backdrop-blur-sm shadow-lg">
-        <CardContent className="p-4 sm:p-8 pt-10 flex flex-col items-center justify-center">
-          {wishMade ? (
-            <div className="text-center">
-              <PartyPopper className="w-16 h-16 mx-auto text-accent mb-4" />
-              <p className="text-2xl font-body mb-6 text-accent-foreground">
-                Your wish has been made!
-              </p>
-              <Button onClick={handleReset} variant="outline" size="lg">
-                <CakeIcon className="mr-2" />
-                Light Another
-              </Button>
+      <div className="max-w-3xl mx-auto perspective-1000">
+        <div className={cn("relative w-full transition-transform duration-1000 transform-style-3d", wishMade && "rotate-y-180")}>
+            {/* Front of the card - The Cake */}
+            <div className="absolute w-full h-full backface-hidden">
+                <Card className="bg-card/80 backdrop-blur-sm shadow-lg min-h-[450px]">
+                    <CardContent className="p-4 sm:p-8 pt-10 flex flex-col items-center justify-center">
+                        <p className="text-muted-foreground mb-4 text-center font-body">
+                            Click the candles or the button to make your birthday wish!
+                        </p>
+                        <div className="relative mb-8 mt-10">
+                            <div className="relative flex items-end justify-center gap-1 w-full max-w-sm px-2 mb-2">
+                                {candles.map((lit, index) => (
+                                <Candle
+                                    key={index}
+                                    lit={lit}
+                                    onClick={() => toggleCandle(index)}
+                                    number={index + 1}
+                                />
+                                ))}
+                            </div>
+                            <Cake />
+                        </div>
+                        <Button onClick={handleBlowOut} disabled={allCandlesOut} size="lg">
+                            <Wind className="mr-2" />
+                            Blow out all candles
+                        </Button>
+                    </CardContent>
+                </Card>
             </div>
-          ) : (
-            <>
-              <p className="text-muted-foreground mb-4 text-center font-body">
-                Click the candles or the button to make your birthday wish!
-              </p>
-              <div className="relative mb-8 mt-10">
-                <div className="relative flex items-end justify-center gap-1 w-full max-w-sm px-2 mb-2">
-                  {candles.map((lit, index) => (
-                    <Candle
-                      key={index}
-                      lit={lit}
-                      onClick={() => toggleCandle(index)}
-                      number={index + 1}
-                    />
-                  ))}
-                </div>
-                <BirthdayCake />
-              </div>
-              <Button onClick={handleBlowOut} disabled={allCandlesOut} size="lg">
-                <Wind className="mr-2" />
-                Blow out all candles
-              </Button>
-            </>
-          )}
-        </CardContent>
-      </Card>
+            
+            {/* Back of the card - The Birthday Card */}
+            <div className="absolute w-full h-full backface-hidden rotate-y-180">
+                 <BirthdayCard onReset={handleReset} />
+            </div>
+        </div>
+      </div>
     </section>
   );
 }
