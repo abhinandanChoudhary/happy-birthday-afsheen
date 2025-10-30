@@ -53,8 +53,8 @@ export default function ConfettiCanvas() {
     }
   }
 
-  const createBurst = useCallback((x: number, y: number) => {
-    for (let i = 0; i < 50; i++) {
+  const createBurst = useCallback((x: number, y: number, count = 50) => {
+    for (let i = 0; i < count; i++) {
       particles.current.push(new Particle(x, y));
     }
   }, []);
@@ -100,8 +100,23 @@ export default function ConfettiCanvas() {
       createBurst(e.clientX, e.clientY);
     };
 
+    const handleCustomBurst = (e: Event) => {
+      const { detail } = e as CustomEvent;
+      if (detail && detail.bursts) {
+        detail.bursts.forEach(
+          (burst: { x: number; y: number; count?: number }) => {
+            createBurst(burst.x, burst.y, burst.count);
+          }
+        );
+      } else {
+        createBurst(window.innerWidth / 2, window.innerHeight / 2, 100);
+      }
+    };
+
     window.addEventListener('resize', setCanvasSize);
     window.addEventListener('click', handleClick);
+    window.addEventListener('confetti-burst', handleCustomBurst);
+
 
     return () => {
       if (animationFrameId.current) {
@@ -109,6 +124,8 @@ export default function ConfettiCanvas() {
       }
       window.removeEventListener('resize', setCanvasSize);
       window.removeEventListener('click', handleClick);
+      window.removeEventListener('confetti-burst', handleCustomBurst);
+
     };
   }, [createBurst]);
 

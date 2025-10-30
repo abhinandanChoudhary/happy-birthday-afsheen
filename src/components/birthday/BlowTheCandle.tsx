@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Wind, PartyPopper, Cake as CakeIcon } from 'lucide-react';
@@ -16,10 +16,10 @@ const Candle = ({
   number: number;
 }) => (
   <div
-    className="relative w-3 h-12 bg-rose-200 rounded-t-sm mx-auto cursor-pointer group flex items-center justify-center"
+    className="relative w-2 h-10 bg-rose-200 rounded-t-sm mx-auto cursor-pointer group flex items-center justify-center"
     onClick={onClick}
   >
-    <span className="text-pink-600 font-bold text-xs scale-75">{number}</span>
+    <span className="text-pink-600 font-bold text-xs scale-50">{number}</span>
     {/* Wick */}
     <div className="absolute -top-2 left-1/2 -translate-x-1/2 w-0.5 h-2 bg-slate-600"></div>
 
@@ -38,11 +38,11 @@ const Candle = ({
 );
 
 const BirthdayCake = () => (
-  <div className="relative w-full max-w-sm h-28 bg-pink-200 rounded-lg shadow-md flex items-center justify-center">
+  <div className="relative w-full max-w-xs h-24 bg-pink-200 rounded-lg shadow-md flex items-center justify-center">
     <div className="absolute -bottom-4 w-full h-8 bg-pink-300 rounded-b-lg"></div>
     <div className="absolute top-1/2 left-0 w-full h-4 bg-pink-100/50 -translate-y-1/2"></div>
-    <div className="absolute inset-0 flex items-center justify-center">
-      <span className="text-2xl font-headline text-pink-600 drop-shadow-sm">Afsheen 🎊🎉</span>
+     <div className="absolute inset-0 flex items-center justify-center">
+      <span className="text-xl font-headline text-pink-600 drop-shadow-sm">Afsheen 🎊🎉</span>
     </div>
   </div>
 );
@@ -53,10 +53,33 @@ export default function BlowTheCandle() {
 
   const allCandlesOut = useMemo(() => !candles.some(lit => lit), [candles]);
 
+  const triggerConfettiBurst = () => {
+    window.dispatchEvent(
+      new CustomEvent('confetti-burst', {
+        detail: {
+          bursts: [
+            { x: window.innerWidth * 0.25, y: window.innerHeight * 0.2 },
+            { x: window.innerWidth * 0.75, y: window.innerHeight * 0.2 },
+            { x: window.innerWidth / 2, y: window.innerHeight / 2 },
+          ],
+        },
+      })
+    );
+  };
+
+
+  useEffect(() => {
+    if (allCandlesOut && !wishMade) {
+      triggerConfettiBurst();
+      const timer = setTimeout(() => setWishMade(true), 1000); // Wait for smoke animation
+      return () => clearTimeout(timer);
+    }
+  }, [allCandlesOut, wishMade]);
+
   const handleBlowOut = () => {
     setCandles(Array(17).fill(false));
-    setTimeout(() => setWishMade(true), 1000); // Wait for smoke animation
   };
+
 
   const handleReset = () => {
     setCandles(Array(17).fill(true));
@@ -67,9 +90,6 @@ export default function BlowTheCandle() {
     const newCandles = [...candles];
     newCandles[index] = !newCandles[index];
     setCandles(newCandles);
-    if (newCandles.every(c => !c)) {
-      setTimeout(() => setWishMade(true), 1000);
-    }
   };
 
   return (
@@ -106,7 +126,7 @@ export default function BlowTheCandle() {
                 Click the candles or the button to make your birthday wish!
               </p>
               <div className="relative mb-8 mt-10">
-                <div className="relative flex items-end justify-center gap-1.5 w-full max-w-sm px-2 mb-2">
+                <div className="relative flex items-end justify-center gap-1 w-full max-w-sm px-2 mb-2">
                   {candles.map((lit, index) => (
                     <Candle
                       key={index}
