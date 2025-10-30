@@ -76,7 +76,7 @@ export default function BlowTheCandle({ onCandlesBlown }: { onCandlesBlown: () =
       const timer = setTimeout(() => {
         setWishMade(true);
         // Delay calling the next section to allow card to flip
-        setTimeout(onCandlesBlown, 3000);
+        setTimeout(onCandlesBlown, 3000); 
       }, 500); // Short delay for flip
       return () => clearTimeout(timer);
     }
@@ -117,10 +117,10 @@ export default function BlowTheCandle({ onCandlesBlown }: { onCandlesBlown: () =
         Make a Wish!
       </h2>
       <div className="max-w-3xl w-full mx-auto perspective-1000">
-        <div className={cn("relative w-full transition-transform duration-1000 transform-style-3d", wishMade && "rotate-y-180")}>
+        <div className={cn("relative w-full h-[500px] sm:h-auto transition-transform duration-1000 transform-style-3d", wishMade && "rotate-y-180")}>
             {/* Front of the card - The Cake */}
             <div className="absolute w-full h-full backface-hidden">
-                <Card className="bg-card/80 backdrop-blur-sm shadow-lg flex flex-col justify-center">
+                <Card className="bg-card/80 backdrop-blur-sm shadow-lg flex flex-col justify-center h-full">
                     <CardContent className="p-4 sm:p-6 flex flex-col items-center justify-around h-full">
                         <p className="text-muted-foreground mt-2 text-center font-body">
                             Click the candles or the button to make your birthday wish!
