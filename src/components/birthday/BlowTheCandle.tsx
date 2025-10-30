@@ -29,7 +29,7 @@ const Candle = ({ lit, onClick }: { lit: boolean; onClick: () => void }) => (
 );
 
 const BirthdayCake = () => (
-    <div className="relative w-full max-w-sm h-24 bg-pink-200 rounded-lg shadow-md mt-10">
+    <div className="relative w-full max-w-sm h-24 bg-pink-200 rounded-lg shadow-md">
         <div className="absolute -bottom-4 w-full h-8 bg-pink-300 rounded-b-lg"></div>
         <div className="absolute top-1/2 left-0 w-full h-4 bg-pink-100/50 -translate-y-1/2"></div>
     </div>
@@ -94,13 +94,13 @@ export default function BlowTheCandle() {
               <p className="text-muted-foreground mb-4 text-center font-body">
                 Click the candles or the button to make your birthday wish!
               </p>
-              <div className="relative mb-8 flex flex-col items-center">
-                  <BirthdayCake />
-                  <div className="absolute -top-12 flex items-end justify-center gap-1 w-full max-w-xs sm:max-w-sm px-2">
+              <div className="relative mb-8 mt-10">
+                  <div className="relative flex items-end justify-center gap-1 w-full max-w-xs sm:max-w-sm px-2 mb-2">
                       {candles.map((lit, index) => (
                         <Candle key={index} lit={lit} onClick={() => toggleCandle(index)} />
                       ))}
                   </div>
+                  <BirthdayCake />
               </div>
               <Button onClick={handleBlowOut} disabled={allCandlesOut} size="lg">
                 <Wind className="mr-2" />
