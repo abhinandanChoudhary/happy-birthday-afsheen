@@ -28,7 +28,7 @@ const Candle = ({ lit, onClick }: { lit: boolean; onClick: () => void }) => (
 );
 
 const BirthdayCake = () => (
-    <div className="relative w-72 h-24 bg-pink-200 rounded-lg shadow-md mt-10">
+    <div className="relative w-full max-w-sm h-24 bg-pink-200 rounded-lg shadow-md mt-10">
         <div className="absolute -bottom-4 w-full h-8 bg-pink-300 rounded-b-lg"></div>
         <div className="absolute top-1/2 left-0 w-full h-4 bg-pink-100/50 -translate-y-1/2"></div>
     </div>
@@ -61,12 +61,12 @@ export default function BlowTheCandle() {
   }
 
   return (
-    <section>
+    <section className="w-full px-4">
       <h2 className="font-headline text-3xl md:text-4xl text-center mb-8">
         Make a Wish!
       </h2>
       <Card className="max-w-2xl mx-auto bg-card/80 backdrop-blur-sm shadow-lg">
-        <CardContent className="p-8 pt-10 flex flex-col items-center justify-center">
+        <CardContent className="p-4 sm:p-8 pt-10 flex flex-col items-center justify-center">
           {wishMade ? (
             <div className="text-center">
               <PartyPopper className="w-16 h-16 mx-auto text-accent mb-4" />
@@ -81,11 +81,11 @@ export default function BlowTheCandle() {
           ) : (
             <>
               <p className="text-muted-foreground mb-4 text-center font-body">
-                Click the button and make your birthday wish!
+                Click the candles or the button to make your birthday wish!
               </p>
-              <div className="relative mb-8">
+              <div className="relative mb-8 flex flex-col items-center">
                   <BirthdayCake />
-                  <div className="absolute -top-12 left-1/2 -translate-x-1/2 flex items-end justify-center gap-1 w-64">
+                  <div className="absolute -top-12 flex items-end justify-center gap-1 w-full max-w-xs sm:max-w-sm px-2">
                       {candles.map((lit, index) => (
                         <Candle key={index} lit={lit} onClick={() => toggleCandle(index)} />
                       ))}
@@ -93,7 +93,7 @@ export default function BlowTheCandle() {
               </div>
               <Button onClick={handleBlowOut} disabled={allCandlesOut} size="lg">
                 <Wind className="mr-2" />
-                Blow out the candles
+                Blow out all candles
               </Button>
             </>
           )}
