@@ -15,17 +15,17 @@ export default function Hero() {
       {/* Balloons */}
       <Balloon
         color="hsl(var(--primary))"
-        className="bottom-[-10%] left-[-5%] w-32 h-auto opacity-80"
+        className="bottom-[5%] left-[5%] w-32 h-auto opacity-80"
         style={{ animationDelay: '0s' }}
       />
       <Balloon
         color="hsl(var(--secondary))"
-        className="bottom-[-15%] right-[-5%] w-40 h-auto opacity-70"
+        className="bottom-[10%] right-[5%] w-40 h-auto opacity-70"
         style={{ animationDelay: '2s' }}
       />
       <Balloon
         color="hsl(var(--accent))"
-        className="bottom-[-5%] right-[25%] w-28 h-auto opacity-90"
+        className="bottom-[2%] right-[25%] w-28 h-auto opacity-90"
         style={{ animationDelay: '4s' }}
       />
     </section>
