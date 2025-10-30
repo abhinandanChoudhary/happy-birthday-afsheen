@@ -62,6 +62,14 @@ export default function Home() {
   const audioRef = useRef<HTMLAudioElement>(null);
   const [hasInteracted, setHasInteracted] = useState(false);
 
+  const sections = [
+    { component: Hero, id: 'hero' },
+    { component: SurpriseAhead, id: 'surprise' },
+    { component: BlowTheCandle, id: 'candle' },
+    { component: WishingTree, id: 'tree' },
+    { component: HeartfeltAffirmations, id: 'affirmations' },
+  ];
+
   const handleNextSection = useCallback(() => {
     startTransition(() => {
       setCurrentSection(prev => {
@@ -82,14 +90,6 @@ export default function Home() {
     }
     handleNextSection();
   };
-
-  const sections = [
-    { component: <Hero onBegin={handleBegin} />, id: 'hero' },
-    { component: <SurpriseAhead />, id: 'surprise' },
-    { component: <BlowTheCandle onCandlesBlown={handleNextSection} />, id: 'candle' },
-    { component: <WishingTree />, id: 'tree' },
-    { component: <HeartfeltAffirmations />, id: 'affirmations' },
-  ];
   
   const candleSectionIndex = sections.findIndex(s => s.id === 'candle');
   const heroSectionIndex = sections.findIndex(s => s.id === 'hero');
@@ -107,17 +107,25 @@ export default function Home() {
   
   const CurrentComponent = sections[currentSection].component;
 
+  const props: any = {};
+  if (sections[currentSection].id === 'hero') {
+    props.onBegin = handleBegin;
+  }
+  if (sections[currentSection].id === 'candle') {
+    props.onCandlesBlown = handleNextSection;
+  }
+
   return (
     <>
       <audio ref={audioRef} loop className="sr-only">
-        <source src="https://storage.googleapis.com/genkit-assets/happy-birthday-music-box.mp3" type="audio/mpeg" />
+        <source src="https://raw.githubusercontent.com/abhinandanChoudhary/happy-birthday-afsheen-hehe-/main/aud.mp3" type="audio/mpeg" />
         Your browser does not support the audio element.
       </audio>
       <ConfettiCanvas />
       <div className="relative min-h-dvh flex flex-col items-center justify-center overflow-hidden">
         <MagicalBackground />
         <div className={`relative z-10 w-full h-dvh flex items-center justify-center transition-opacity duration-1000 ${isTransitioning ? 'opacity-0' : 'opacity-100'}`}>
-            {CurrentComponent}
+            <CurrentComponent {...props} />
         </div>
 
         {currentSection === sections.length - 1 && (
