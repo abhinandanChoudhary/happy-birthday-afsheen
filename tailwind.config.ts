@@ -10,8 +10,8 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        body: ['Lora', 'serif'],
-        headline: ['Playfair Display', 'serif'],
+        body: ['Poppins', 'sans-serif'],
+        headline: ['Great Vibes', 'cursive'],
         code: ['monospace'],
       },
       colors: {

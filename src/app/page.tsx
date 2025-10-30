@@ -25,6 +25,17 @@ const MagicalBackground = () => (
       <div className="absolute -top-1/4 -left-1/4 w-[150%] h-[150%] bg-gradient-to-tr from-primary/30 via-transparent to-secondary/30 rounded-full animate-wave"></div>
       <div className="absolute -bottom-1/4 -right-1/4 w-[150%] h-[150%] bg-gradient-to-bl from-accent/30 via-transparent to-primary/30 rounded-full animate-wave-reverse"></div>
     </div>
+    {/* Shooting Stars */}
+    {[...Array(3)].map((_, i) => (
+      <div
+        key={`shooting-star-${i}`}
+        className="absolute top-0 left-0 w-1 h-32 bg-gradient-to-b from-secondary/80 to-transparent rounded-full animate-shooting-star"
+        style={{
+          animationDelay: `${i * 3 + Math.random() * 2}s`,
+          left: `${Math.random() * 100}vw`,
+        }}
+      />
+    ))}
     {/* Sparkles */}
     {[...Array(50)].map((_, i) => (
         <div key={`sparkle-${i}`}
