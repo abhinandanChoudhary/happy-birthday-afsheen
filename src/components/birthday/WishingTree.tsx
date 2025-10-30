@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
-import { Sparkles } from 'lucide-react';
 import Balloon from './Balloon';
 
 const LEAF_COLORS = [
@@ -59,34 +58,77 @@ const Leaf = ({
   ></div>
 );
 
-const Tree = () => (
+const Tree = ({ isGrown }: { isGrown: boolean }) => (
   <div className="relative w-48 h-64 md:w-64 md:h-80 mx-auto">
     {/* Trunk */}
-    <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-8 md:w-10 h-2/5 bg-amber-900 rounded-t-md"></div>
+    <div
+      className={`absolute bottom-0 left-1/2 -translate-x-1/2 w-8 md:w-10 h-2/5 bg-amber-900 rounded-t-md ${
+        isGrown ? 'animate-grow-trunk' : 'scale-y-0'
+      }`}
+    ></div>
     {/* Branches */}
-    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 w-2 h-16 bg-amber-800 transform -rotate-45 origin-bottom-left rounded-md"></div>
-    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 w-2 h-16 bg-amber-800 transform rotate-45 origin-bottom-right rounded-md"></div>
-    <div className="absolute top-[30%] left-[55%] w-1.5 h-12 bg-amber-800 transform rotate-20 origin-bottom-right rounded-md"></div>
-    <div className="absolute top-[35%] left-[45%] w-1.5 h-12 bg-amber-800 transform -rotate-20 origin-bottom-left rounded-md"></div>
+    <div
+      className={`absolute top-1/2 left-1/2 -translate-x-1/2 w-2 h-16 bg-amber-800 transform -rotate-45 origin-bottom-left rounded-md ${
+        isGrown ? 'animate-grow-branch' : 'scale-0'
+      }`}
+      style={{ animationDelay: '1s' }}
+    ></div>
+    <div
+      className={`absolute top-1/2 left-1/2 -translate-x-1/2 w-2 h-16 bg-amber-800 transform rotate-45 origin-bottom-right rounded-md ${
+        isGrown ? 'animate-grow-branch' : 'scale-0'
+      }`}
+      style={{ animationDelay: '1.2s' }}
+    ></div>
+    <div
+      className={`absolute top-[30%] left-[55%] w-1.5 h-12 bg-amber-800 transform rotate-20 origin-bottom-right rounded-md ${
+        isGrown ? 'animate-grow-branch' : 'scale-0'
+      }`}
+      style={{ animationDelay: '1.4s' }}
+    ></div>
+    <div
+      className={`absolute top-[35%] left-[45%] w-1.5 h-12 bg-amber-800 transform -rotate-20 origin-bottom-left rounded-md ${
+        isGrown ? 'animate-grow-branch' : 'scale-0'
+      }`}
+      style={{ animationDelay: '1.6s' }}
+    ></div>
+  </div>
+);
+
+const Seed = () => (
+  <div className="absolute bottom-[20%] left-1/2 -translate-x-1/2">
+    <div className="w-4 h-4 bg-secondary rounded-full animate-seed-pulse"></div>
   </div>
 );
 
 export default function WishingTree() {
   const [isMounted, setIsMounted] = useState(false);
+  const [isGrowing, setIsGrowing] = useState(false);
+  const [isGrown, setIsGrown] = useState(false);
+  const [showLeaves, setShowLeaves] = useState(false);
 
   useEffect(() => {
-    const timer = setTimeout(() => setIsMounted(true), 100);
-    return () => clearTimeout(timer);
+    const mountTimer = setTimeout(() => setIsMounted(true), 100);
+    // Sequence: Seed -> Grow -> Grown -> Leaves
+    const growTimer = setTimeout(() => setIsGrowing(true), 2000);
+    const grownTimer = setTimeout(() => setIsGrown(true), 2100);
+    const leavesTimer = setTimeout(() => setShowLeaves(true), 3500);
+
+    return () => {
+      clearTimeout(mountTimer);
+      clearTimeout(growTimer);
+      clearTimeout(grownTimer);
+      clearTimeout(leavesTimer);
+    };
   }, []);
 
   return (
     <section className="w-full px-4 relative">
-       <Balloon
+      <Balloon
         color="hsl(var(--secondary) / 0.6)"
         className="bottom-[20%] -left-[10%] w-36 h-auto"
         style={{ animationDelay: '1.5s' }}
       />
-       <Balloon
+      <Balloon
         color="hsl(var(--primary) / 0.7)"
         className="top-[15%] -right-[8%] w-28 h-auto"
         style={{ animationDelay: '3.5s' }}
@@ -100,18 +142,20 @@ export default function WishingTree() {
       <Card className="max-w-2xl mx-auto bg-card/80 backdrop-blur-sm shadow-lg">
         <CardContent className="p-4 sm:p-8 pt-10 flex flex-col items-center justify-center min-h-[400px]">
           <div className="relative w-64 h-80 md:w-80 md:h-96">
-            <Tree />
+            {!isGrowing && isMounted && <Seed />}
+            {isGrowing && <Tree isGrown={isGrown} />}
             <div className="absolute inset-0">
-              {isMounted && LEAVES_CONFIG.map((leaf, index) => (
-                <Leaf
-                  key={index}
-                  color={LEAF_COLORS[index % LEAF_COLORS.length]}
-                  size={leaf.size}
-                  top={leaf.top}
-                  left={leaf.left}
-                  animationDelay={`${index * 100 + 200}ms`}
-                />
-              ))}
+              {showLeaves &&
+                LEAVES_CONFIG.map((leaf, index) => (
+                  <Leaf
+                    key={index}
+                    color={LEAF_COLORS[index % LEAF_COLORS.length]}
+                    size={leaf.size}
+                    top={leaf.top}
+                    left={leaf.left}
+                    animationDelay={`${index * 100}ms`}
+                  />
+                ))}
             </div>
           </div>
         </CardContent>

@@ -79,7 +79,7 @@
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-body;
   }
 }
 
@@ -235,5 +235,33 @@
   }
   .animate-bloom {
     animation: bloom 0.5s ease-out forwards;
+  }
+  @keyframes seed-pulse {
+    0%, 100% {
+      transform: scale(1);
+      box-shadow: 0 0 5px hsl(var(--secondary)), 0 0 10px hsl(var(--secondary));
+    }
+    50% {
+      transform: scale(1.1);
+      box-shadow: 0 0 15px hsl(var(--secondary)), 0 0 25px hsl(var(--secondary));
+    }
+  }
+  .animate-seed-pulse {
+    animation: seed-pulse 2s infinite ease-in-out;
+  }
+  @keyframes grow-trunk {
+    from { transform: scaleY(0); }
+    to { transform: scaleY(1); }
+  }
+  .animate-grow-trunk {
+    animation: grow-trunk 1.5s ease-out forwards;
+    transform-origin: bottom;
+  }
+  @keyframes grow-branch {
+    from { transform: scale(0); }
+    to { transform: scale(1); }
+  }
+  .animate-grow-branch {
+    animation: grow-branch 1s ease-out forwards;
   }
 }
