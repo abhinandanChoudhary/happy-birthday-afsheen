@@ -9,7 +9,7 @@ export default function Hero({ onBegin }: { onBegin: () => void }) {
         <h1 className="font-bubble text-5xl md:text-7xl font-bold text-foreground tracking-tight drop-shadow-[0_2px_2px_rgba(0,0,0,0.5)]">
           HAPPY BIRTHDAY AFSHEEN
         </h1>
-        <p className="mt-4 font-body text-lg text-muted-foreground">
+        <p className="mt-4 font-body text-lg text-secondary">
           A special journey just for you...
         </p>
         <Button onClick={onBegin} size="lg" className="mt-8 animate-pulse">
