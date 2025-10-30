@@ -6,11 +6,20 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Wind, PartyPopper, Cake as CakeIcon } from 'lucide-react';
 import Balloon from './Balloon';
 
-const Candle = ({ lit, onClick }: { lit: boolean; onClick: () => void }) => (
+const Candle = ({
+  lit,
+  onClick,
+  number,
+}: {
+  lit: boolean;
+  onClick: () => void;
+  number: number;
+}) => (
   <div
-    className="relative w-4 h-16 bg-rose-200 rounded-t-sm mx-auto cursor-pointer group"
+    className="relative w-4 h-16 bg-rose-200 rounded-t-sm mx-auto cursor-pointer group flex items-center justify-center"
     onClick={onClick}
   >
+    <span className="text-pink-600 font-bold text-xs">{number}</span>
     {/* Wick */}
     <div className="absolute -top-2 left-1/2 -translate-x-1/2 w-0.5 h-2 bg-slate-600"></div>
 
@@ -29,12 +38,11 @@ const Candle = ({ lit, onClick }: { lit: boolean; onClick: () => void }) => (
 );
 
 const BirthdayCake = () => (
-    <div className="relative w-full max-w-lg h-32 bg-pink-200 rounded-lg shadow-md">
-        <div className="absolute -bottom-4 w-full h-8 bg-pink-300 rounded-b-lg"></div>
-        <div className="absolute top-1/2 left-0 w-full h-4 bg-pink-100/50 -translate-y-1/2"></div>
-    </div>
-)
-
+  <div className="relative w-full max-w-lg h-32 bg-pink-200 rounded-lg shadow-md">
+    <div className="absolute -bottom-4 w-full h-8 bg-pink-300 rounded-b-lg"></div>
+    <div className="absolute top-1/2 left-0 w-full h-4 bg-pink-100/50 -translate-y-1/2"></div>
+  </div>
+);
 
 export default function BlowTheCandle() {
   const [candles, setCandles] = useState(Array(17).fill(true));
@@ -56,23 +64,23 @@ export default function BlowTheCandle() {
     const newCandles = [...candles];
     newCandles[index] = !newCandles[index];
     setCandles(newCandles);
-    if(newCandles.every(c => !c)) {
-        setTimeout(() => setWishMade(true), 1000);
+    if (newCandles.every(c => !c)) {
+      setTimeout(() => setWishMade(true), 1000);
     }
-  }
+  };
 
   return (
     <section className="w-full px-4 relative">
-        <Balloon
-            color="hsl(var(--primary) / 0.7)"
-            className="top-[5%] left-[2%] w-24 h-auto"
-            style={{ animationDelay: '1s' }}
-        />
-        <Balloon
-            color="hsl(var(--accent) / 0.8)"
-            className="top-[10%] right-[5%] w-32 h-auto"
-            style={{ animationDelay: '3s' }}
-        />
+      <Balloon
+        color="hsl(var(--primary) / 0.7)"
+        className="top-[5%] left-[2%] w-24 h-auto"
+        style={{ animationDelay: '1s' }}
+      />
+      <Balloon
+        color="hsl(var(--accent) / 0.8)"
+        className="top-[10%] right-[5%] w-32 h-auto"
+        style={{ animationDelay: '3s' }}
+      />
       <h2 className="font-headline text-3xl md:text-4xl text-center mb-8">
         Make a Wish!
       </h2>
@@ -95,12 +103,17 @@ export default function BlowTheCandle() {
                 Click the candles or the button to make your birthday wish!
               </p>
               <div className="relative mb-8 mt-10">
-                  <div className="relative flex items-end justify-center gap-2.5 w-full max-w-lg px-2 mb-2">
-                      {candles.map((lit, index) => (
-                        <Candle key={index} lit={lit} onClick={() => toggleCandle(index)} />
-                      ))}
-                  </div>
-                  <BirthdayCake />
+                <div className="relative flex items-end justify-center gap-2.5 w-full max-w-lg px-2 mb-2">
+                  {candles.map((lit, index) => (
+                    <Candle
+                      key={index}
+                      lit={lit}
+                      onClick={() => toggleCandle(index)}
+                      number={index + 1}
+                    />
+                  ))}
+                </div>
+                <BirthdayCake />
               </div>
               <Button onClick={handleBlowOut} disabled={allCandlesOut} size="lg">
                 <Wind className="mr-2" />
