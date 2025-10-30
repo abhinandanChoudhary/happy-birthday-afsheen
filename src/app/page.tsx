@@ -73,8 +73,18 @@ export default function Home() {
     });
   }, []);
 
+  const handleBegin = () => {
+    if (!hasInteracted) {
+      setHasInteracted(true);
+      audioRef.current?.play().catch(error => {
+        console.error("Audio playback failed:", error);
+      });
+    }
+    handleNextSection();
+  };
+
   const sections = [
-    { component: <Hero />, id: 'hero' },
+    { component: <Hero onBegin={handleBegin} />, id: 'hero' },
     { component: <SurpriseAhead />, id: 'surprise' },
     { component: <BlowTheCandle onCandlesBlown={handleNextSection} />, id: 'candle' },
     { component: <WishingTree />, id: 'tree' },
@@ -82,27 +92,19 @@ export default function Home() {
   ];
   
   const candleSectionIndex = sections.findIndex(s => s.id === 'candle');
+  const heroSectionIndex = sections.findIndex(s => s.id === 'hero');
   const SECTION_INTERVAL = 5000;
 
   useEffect(() => {
-    if (currentSection < sections.length - 1 && currentSection !== candleSectionIndex) {
+    if (currentSection < sections.length - 1 && currentSection !== candleSectionIndex && currentSection !== heroSectionIndex) {
       const timer = setTimeout(() => {
         handleNextSection();
       }, SECTION_INTERVAL);
 
       return () => clearTimeout(timer);
     }
-  }, [currentSection, candleSectionIndex, handleNextSection]);
+  }, [currentSection, candleSectionIndex, heroSectionIndex, handleNextSection]);
   
-  const handleInteraction = () => {
-    if (!hasInteracted) {
-      setHasInteracted(true);
-      audioRef.current?.play().catch(error => {
-        console.error("Audio playback failed:", error);
-      });
-    }
-  };
-
   const CurrentComponent = sections[currentSection].component;
 
   return (
@@ -112,7 +114,7 @@ export default function Home() {
         Your browser does not support the audio element.
       </audio>
       <ConfettiCanvas />
-      <div className="relative min-h-dvh flex flex-col items-center justify-center overflow-hidden" onClick={handleInteraction}>
+      <div className="relative min-h-dvh flex flex-col items-center justify-center overflow-hidden">
         <MagicalBackground />
         <div className={`relative z-10 w-full h-dvh flex items-center justify-center transition-opacity duration-1000 ${isTransitioning ? 'opacity-0' : 'opacity-100'}`}>
             {CurrentComponent}
