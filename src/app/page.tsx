@@ -79,7 +79,7 @@ export default function Home() {
         return prev;
       });
     });
-  }, []);
+  }, [sections.length]);
 
   const handleBegin = () => {
     if (!hasInteracted) {
@@ -91,19 +91,20 @@ export default function Home() {
     handleNextSection();
   };
   
-  const candleSectionIndex = sections.findIndex(s => s.id === 'candle');
-  const heroSectionIndex = sections.findIndex(s => s.id === 'hero');
   const SECTION_INTERVAL = 5000;
 
   useEffect(() => {
-    if (currentSection < sections.length - 1 && currentSection !== candleSectionIndex && currentSection !== heroSectionIndex) {
+    const currentSectionId = sections[currentSection].id;
+    
+    // Only apply timer for 'surprise' and 'tree' sections
+    if (currentSectionId === 'surprise' || currentSectionId === 'tree') {
       const timer = setTimeout(() => {
         handleNextSection();
       }, SECTION_INTERVAL);
 
       return () => clearTimeout(timer);
     }
-  }, [currentSection, candleSectionIndex, heroSectionIndex, handleNextSection]);
+  }, [currentSection, handleNextSection, sections]);
   
   const CurrentComponent = sections[currentSection].component;
 
