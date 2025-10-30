@@ -8,7 +8,7 @@ export default function Home() {
   return (
     <>
       <ConfettiCanvas />
-      <div className="flex flex-col min-h-dvh animated-gradient">
+      <div className="flex flex-col min-h-dvh bg-background">
         <main className="flex-1">
           <Hero />
           <div className="container mx-auto px-4 py-12 md:py-20 space-y-16 md:space-y-24">
