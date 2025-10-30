@@ -6,7 +6,7 @@ export default function Hero({ onBegin }: { onBegin: () => void }) {
     <section className="relative text-center py-20 md:py-32 overflow-hidden min-h-[50vh] w-full flex flex-col items-center justify-center">
       {/* Foreground content */}
       <div className="container mx-auto px-4 relative z-10">
-        <h1 className="font-headline text-5xl md:text-7xl font-bold text-foreground tracking-tight drop-shadow-[0_2px_2px_rgba(0,0,0,0.5)]">
+        <h1 className="font-bubble text-5xl md:text-7xl font-bold text-foreground tracking-tight drop-shadow-[0_2px_2px_rgba(0,0,0,0.5)]">
           HAPPY BIRTHDAY AFSHEEN
         </h1>
         <Button onClick={onBegin} size="lg" className="mt-8 animate-pulse">

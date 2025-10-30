@@ -12,6 +12,7 @@ export default {
       fontFamily: {
         body: ['Poppins', 'sans-serif'],
         headline: ['Great Vibes', 'cursive'],
+        bubble: ['"Fredoka One"', 'cursive'],
       },
       colors: {
         background: 'hsl(var(--background))',

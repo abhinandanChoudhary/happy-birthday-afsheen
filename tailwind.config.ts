@@ -13,6 +13,7 @@ export default {
         body: ['Poppins', 'sans-serif'],
         headline: ['Great Vibes', 'cursive'],
         code: ['monospace'],
+        bubble: ['"Fredoka One"', 'cursive'],
       },
       colors: {
         background: 'hsl(var(--background))',
