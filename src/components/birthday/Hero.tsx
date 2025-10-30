@@ -5,7 +5,7 @@ import BirthdayCountdown from './BirthdayCountdown';
 export default function Hero({ onBegin }: { onBegin: () => void }) {
   // Set the target birthday date.
   // Note: Months are 0-indexed (0 = January, 10 = November, etc.)
-  const birthDate = new Date(2007, 10, 10);
+  const birthDate = new Date(2008, 10, 10);
 
   return (
     <section className="relative text-center py-20 md:py-32 overflow-hidden min-h-[50vh] w-full flex flex-col items-center justify-center">
