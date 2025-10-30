@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { useAIFlow } from '@genkit-ai/next/client';
+import { useAIFlow } from '@genkit-ai/next';
 import { generatePersonalizedMessage } from '@/ai/flows/generate-personalized-message';
 import { Button } from '@/components/ui/button';
 import {
