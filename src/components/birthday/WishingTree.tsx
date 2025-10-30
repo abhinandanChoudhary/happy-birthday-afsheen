@@ -122,7 +122,7 @@ export default function WishingTree() {
   }, []);
 
   return (
-    <section className="w-full px-4 relative">
+    <section className="w-full px-4 relative flex flex-col justify-center">
       <Balloon
         color="hsl(var(--secondary) / 0.6)"
         className="bottom-[20%] -left-[10%] w-36 h-auto"

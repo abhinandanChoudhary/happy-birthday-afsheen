@@ -102,7 +102,7 @@ export default function BlowTheCandle({ onCandlesBlown }: { onCandlesBlown: () =
   };
 
   return (
-    <section className="w-full px-4 relative">
+    <section className="w-full px-4 relative flex flex-col justify-center">
       <Balloon
         color="hsl(var(--primary) / 0.7)"
         className="top-[5%] left-[2%] w-24 h-auto"
