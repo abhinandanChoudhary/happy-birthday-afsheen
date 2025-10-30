@@ -13,10 +13,10 @@ const CountdownItem = ({ value, label }: { value: number; label: string }) => (
   </div>
 );
 
-export default function BirthdayCountdown({ targetDate }: { targetDate: Date }) {
-  const calculateTimeLeft = () => {
-    const difference = +targetDate - +new Date();
-    let timeLeft = {
+export default function BirthdayCountdown({ birthDate }: { birthDate: Date }) {
+  const calculateTimeLived = () => {
+    const difference = +new Date() - +birthDate;
+    let timeLived = {
       days: 0,
       hours: 0,
       minutes: 0,
@@ -24,7 +24,7 @@ export default function BirthdayCountdown({ targetDate }: { targetDate: Date }) 
     };
 
     if (difference > 0) {
-      timeLeft = {
+      timeLived = {
         days: Math.floor(difference / (1000 * 60 * 60 * 24)),
         hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
         minutes: Math.floor((difference / 1000 / 60) % 60),
@@ -32,10 +32,10 @@ export default function BirthdayCountdown({ targetDate }: { targetDate: Date }) 
       };
     }
 
-    return timeLeft;
+    return timeLived;
   };
 
-  const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
+  const [timeLived, setTimeLived] = useState(calculateTimeLived());
   const [isClient, setIsClient] = useState(false);
 
 
@@ -44,7 +44,7 @@ export default function BirthdayCountdown({ targetDate }: { targetDate: Date }) 
     setIsClient(true);
 
     const timer = setInterval(() => {
-      setTimeLeft(calculateTimeLeft());
+      setTimeLived(calculateTimeLived());
     }, 1000);
 
     return () => clearInterval(timer);
@@ -56,10 +56,10 @@ export default function BirthdayCountdown({ targetDate }: { targetDate: Date }) 
   }
   
   const timerComponents = [
-    { label: 'Days', value: timeLeft.days },
-    { label: 'Hours', value: timeLeft.hours },
-    { label: 'Minutes', value: timeLeft.minutes },
-    { label: 'Seconds', value: timeLeft.seconds },
+    { label: 'Days', value: timeLived.days },
+    { label: 'Hours', value: timeLived.hours },
+    { label: 'Minutes', value: timeLived.minutes },
+    { label: 'Seconds', value: timeLived.seconds },
   ];
 
   return (

@@ -5,14 +5,7 @@ import BirthdayCountdown from './BirthdayCountdown';
 export default function Hero({ onBegin }: { onBegin: () => void }) {
   // Set the target birthday date.
   // Note: Months are 0-indexed (0 = January, 10 = November, etc.)
-  const today = new Date();
-  const currentYear = today.getFullYear();
-  let birthday = new Date(currentYear, 10, 10); // November 10th
-
-  // If the birthday has already passed this year, set it for next year.
-  if (today > birthday) {
-    birthday = new Date(currentYear + 1, 10, 10);
-  }
+  const birthDate = new Date(2007, 10, 10);
 
   return (
     <section className="relative text-center py-20 md:py-32 overflow-hidden min-h-[50vh] w-full flex flex-col items-center justify-center">
@@ -22,10 +15,10 @@ export default function Hero({ onBegin }: { onBegin: () => void }) {
           HAPPY BIRTHDAY AFSHEEN
         </h1>
         <p className="mt-4 font-body text-lg text-secondary">
-          A special journey just for you...
+          Celebrating every moment of your amazing journey...
         </p>
         
-        <BirthdayCountdown targetDate={birthday} />
+        <BirthdayCountdown birthDate={birthDate} />
 
         <Button onClick={onBegin} size="lg" className="mt-8 animate-pulse">
           tap here to begin 🐼
