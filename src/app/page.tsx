@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useTransition } from 'react';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
 import AgeDisplay from '@/components/birthday/AgeDisplay';
 import BlowTheCandle from '@/components/birthday/BlowTheCandle';
@@ -20,13 +20,16 @@ const sections = [
 
 export default function Home() {
   const [currentSection, setCurrentSection] = useState(0);
+  const [isTransitioning, startTransition] = useTransition();
 
-  const goToNext = () => {
-    setCurrentSection(prev => (prev + 1) % sections.length);
-  };
-
-  const goToPrev = () => {
-    setCurrentSection(prev => (prev - 1 + sections.length) % sections.length);
+  const navigate = (direction: 'next' | 'prev') => {
+    startTransition(() => {
+      if (direction === 'next') {
+        setCurrentSection(prev => (prev + 1) % sections.length);
+      } else {
+        setCurrentSection(prev => (prev - 1 + sections.length) % sections.length);
+      }
+    });
   };
 
   const CurrentComponent = sections[currentSection].component;
@@ -36,7 +39,7 @@ export default function Home() {
       <ConfettiCanvas />
       <div className="relative min-h-dvh flex flex-col items-center justify-center overflow-hidden">
         
-        <div className="w-full h-dvh flex items-center justify-center transition-opacity duration-500">
+        <div className={`w-full h-dvh flex items-center justify-center transition-opacity duration-500 ${isTransitioning ? 'opacity-0' : 'opacity-100'}`}>
             {CurrentComponent}
         </div>
 
@@ -44,7 +47,7 @@ export default function Home() {
           <Button
             variant="outline"
             size="icon"
-            onClick={goToPrev}
+            onClick={() => navigate('prev')}
             className="absolute left-4 top-1/2 -translate-y-1/2 z-20 rounded-full h-12 w-12 bg-white/10 backdrop-blur-sm"
             aria-label="Previous Section"
           >
@@ -56,7 +59,7 @@ export default function Home() {
              <Button
              variant="outline"
              size="icon"
-             onClick={goToNext}
+             onClick={() => navigate('next')}
              className="absolute right-4 top-1/2 -translate-y-1/2 z-20 rounded-full h-12 w-12 bg-white/10 backdrop-blur-sm"
              aria-label="Next Section"
            >
