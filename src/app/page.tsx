@@ -99,6 +99,10 @@ export default function Home() {
 
   return (
     <>
+      <audio autoPlay loop className="sr-only">
+        <source src="https://upload.wikimedia.org/wikipedia/commons/2/23/Happy_Birthday_to_You_instrumental_piano_version.ogg" type="audio/ogg" />
+        Your browser does not support the audio element.
+      </audio>
       <ConfettiCanvas />
       <div className="relative min-h-dvh flex flex-col items-center justify-center overflow-hidden">
         <MagicalBackground />
