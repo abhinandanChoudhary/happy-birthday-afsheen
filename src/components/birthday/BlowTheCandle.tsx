@@ -38,9 +38,12 @@ const Candle = ({
 );
 
 const BirthdayCake = () => (
-  <div className="relative w-full max-w-lg h-32 bg-pink-200 rounded-lg shadow-md">
+  <div className="relative w-full max-w-lg h-32 bg-pink-200 rounded-lg shadow-md flex items-center justify-center">
     <div className="absolute -bottom-4 w-full h-8 bg-pink-300 rounded-b-lg"></div>
     <div className="absolute top-1/2 left-0 w-full h-4 bg-pink-100/50 -translate-y-1/2"></div>
+    <div className="absolute inset-0 flex items-center justify-center">
+      <span className="text-3xl font-headline text-pink-600 drop-shadow-sm">Afsheen 🎊🎉</span>
+    </div>
   </div>
 );
 
