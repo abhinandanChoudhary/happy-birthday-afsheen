@@ -111,7 +111,7 @@ export default function Home() {
   return (
     <>
       <audio ref={audioRef} loop className="sr-only">
-        <source src="https://upload.wikimedia.org/wikipedia/commons/2/23/Happy_Birthday_to_You_instrumental_piano_version.ogg" type="audio/ogg" />
+        <source src="https://firebasestorage.googleapis.com/v0/b/genkit-llm-78e79.appspot.com/o/happy-birthday-music-box.mp3?alt=media&token=a7d25247-49d7-4634-8c73-455b39a37651" type="audio/mpeg" />
         Your browser does not support the audio element.
       </audio>
       <ConfettiCanvas />
