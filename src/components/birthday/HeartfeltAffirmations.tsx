@@ -1,6 +1,7 @@
 'use client';
 
-import { useState, useTransition } from 'react';
+import { useState, useTransition, useRef } from 'react';
+import Autoplay from 'embla-carousel-autoplay';
 import { getHeartfeltAffirmations } from '@/app/actions';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
@@ -10,14 +11,14 @@ import {
   Carousel,
   CarouselContent,
   CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
 } from '@/components/ui/carousel';
 
 export default function HeartfeltAffirmations() {
   const [affirmations, setAffirmations] = useState<string[]>([]);
   const [isPending, startTransition] = useTransition();
   const { toast } = useToast();
+
+  const plugin = useRef(Autoplay({ delay: 3000, stopOnInteraction: false, stopOnMouseEnter: true }));
 
   const handleGenerate = async () => {
     if (isPending) return;
@@ -52,7 +53,13 @@ export default function HeartfeltAffirmations() {
       </h2>
       <div className="max-w-2xl mx-auto">
         {affirmations.length > 0 ? (
-          <Carousel className="w-full">
+          <Carousel 
+            className="w-full"
+            plugins={[plugin.current]}
+            opts={{
+              loop: true,
+            }}
+          >
             <CarouselContent>
               {affirmations.map((affirmation, index) => (
                 <CarouselItem key={index}>
@@ -65,8 +72,6 @@ export default function HeartfeltAffirmations() {
                 </CarouselItem>
               ))}
             </CarouselContent>
-            <CarouselPrevious className="hidden sm:flex" />
-            <CarouselNext className="hidden sm:flex" />
           </Carousel>
         ) : (
           <Card className="bg-card/80 backdrop-blur-sm">
