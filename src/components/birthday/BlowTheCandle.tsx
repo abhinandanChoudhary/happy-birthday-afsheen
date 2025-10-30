@@ -75,12 +75,10 @@ export default function BlowTheCandle({ onCandlesBlown }: { onCandlesBlown: () =
       triggerConfettiBurst();
       const timer = setTimeout(() => {
         setWishMade(true);
-        // Delay calling the next section to allow card to flip
-        setTimeout(onCandlesBlown, 3000); 
       }, 500); // Short delay for flip
       return () => clearTimeout(timer);
     }
-  }, [allCandlesOut, wishMade, onCandlesBlown]);
+  }, [allCandlesOut, wishMade]);
 
   const handleBlowOut = () => {
     setCandles(Array(17).fill(false));
@@ -148,7 +146,7 @@ export default function BlowTheCandle({ onCandlesBlown }: { onCandlesBlown: () =
             
             {/* Back of the card - The Birthday Card */}
             <div className="absolute w-full h-full backface-hidden rotate-y-180">
-                 <BirthdayCard onReset={handleReset} />
+                 <BirthdayCard onReset={handleReset} onContinue={onCandlesBlown} />
             </div>
         </div>
       </div>

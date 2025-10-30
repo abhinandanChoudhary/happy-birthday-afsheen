@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { Gift, Heart } from 'lucide-react';
 
-export default function BirthdayCard({ onReset }: { onReset: () => void }) {
+export default function BirthdayCard({ onReset, onContinue }: { onReset: () => void, onContinue: () => void }) {
   return (
     <Card className="bg-card/90 backdrop-blur-md shadow-lg w-full h-full flex flex-col">
       <CardHeader className="text-center">
@@ -25,9 +25,14 @@ export default function BirthdayCard({ onReset }: { onReset: () => void }) {
         />
         <div className="flex flex-col sm:flex-row gap-4 items-center justify-between mt-6">
             <p className="font-body text-muted-foreground">From: A secret admirer ❤️</p>
-            <Button onClick={onReset} variant="outline" size="lg">
-                Start Over
-            </Button>
+            <div className="flex gap-2">
+              <Button onClick={onReset} variant="outline" size="lg">
+                  Start Over
+              </Button>
+              <Button onClick={onContinue} size="lg">
+                  Continue here
+              </Button>
+            </div>
         </div>
       </CardContent>
     </Card>
