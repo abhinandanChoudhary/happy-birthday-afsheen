@@ -1,3 +1,34 @@
 {
-  "placeholderImages": []
+  "placeholderImages": [
+    {
+      "id": "timeline-1",
+      "description": "A cute baby representing birth.",
+      "imageUrl": "https://images.unsplash.com/photo-1533483595632-c5f0e57a1936?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxuZXdib3JuJTIwYmFieXxlbnwwfHx8fDE3NjE4MTgyOTF8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "newborn baby"
+    },
+    {
+      "id": "timeline-2",
+      "description": "A child with a backpack ready for school.",
+      "imageUrl": "https://images.unsplash.com/photo-1761124739254-52d0aa4db502?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxjaGlsZCUyMGJhY2twYWNrfGVufDB8fHx8MTc2MTg1NTk0Nnww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "child backpack"
+    },
+    {
+      "id": "timeline-3",
+      "description": "A silhouette of someone dancing, representing a hobby.",
+      "imageUrl": "https://images.unsplash.com/photo-1645788652152-7c92755f8e4f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxkYW5jaW5nJTIwc2lsaG91ZXR0ZXxlbnwwfHx8fDE3NjE4NTU5NDd8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "dancing silhouette"
+    },
+    {
+      "id": "timeline-4",
+      "description": "A beautiful birthday cake.",
+      "imageUrl": "https://images.unsplash.com/photo-1551879403-6adb554966fd?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxiaXJ0aGRheSUyMGNha2V8ZW58MHx8fHwxNzYxNzg2NjQ3fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "birthday cake"
+    },
+    {
+      "id": "timeline-5",
+      "description": "An open book symbolizing new chapters.",
+      "imageUrl": "https://images.unsplash.com/photo-1509021436665-8f07dbf5bf1d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxvcGVuJTIwYm9va3xlbnwwfHx8fDE3NjE4MzA0MTN8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "open book"
+    }
+  ]
 }
