@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useTransition, useEffect } from 'react';
+import { useState, useTransition, useEffect, useRef } from 'react';
 import Hero from '@/components/birthday/Hero';
 import SurpriseAhead from '@/components/birthday/SurpriseAhead';
 import BlowTheCandle from '@/components/birthday/BlowTheCandle';
@@ -71,6 +71,8 @@ export default function Home() {
   const [currentSection, setCurrentSection] = useState(0);
   const [isTransitioning, startTransition] = useTransition();
   const candleSectionIndex = sections.findIndex(s => s.id === 'candle');
+  const audioRef = useRef<HTMLAudioElement>(null);
+  const [hasInteracted, setHasInteracted] = useState(false);
 
   handleNextSection = (current: number) => {
     if (current < sections.length - 1) {
@@ -94,17 +96,26 @@ export default function Home() {
       return () => clearTimeout(timer);
     }
   }, [currentSection, candleSectionIndex]);
+  
+  const handleInteraction = () => {
+    if (!hasInteracted) {
+      setHasInteracted(true);
+      audioRef.current?.play().catch(error => {
+        console.error("Audio playback failed:", error);
+      });
+    }
+  };
 
   const CurrentComponent = sections[currentSection].component;
 
   return (
     <>
-      <audio autoPlay loop className="sr-only">
+      <audio ref={audioRef} loop className="sr-only">
         <source src="https://upload.wikimedia.org/wikipedia/commons/2/23/Happy_Birthday_to_You_instrumental_piano_version.ogg" type="audio/ogg" />
         Your browser does not support the audio element.
       </audio>
       <ConfettiCanvas />
-      <div className="relative min-h-dvh flex flex-col items-center justify-center overflow-hidden">
+      <div className="relative min-h-dvh flex flex-col items-center justify-center overflow-hidden" onClick={handleInteraction}>
         <MagicalBackground />
         <div className={`relative z-10 w-full h-dvh flex items-center justify-center transition-opacity duration-1000 ${isTransitioning ? 'opacity-0' : 'opacity-100'}`}>
             {CurrentComponent}
