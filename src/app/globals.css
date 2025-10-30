@@ -219,4 +219,21 @@
   .animate-sparkle {
     animation: sparkle 5s ease-in-out infinite;
   }
+   /* Wishing Tree Animation */
+   @keyframes bloom {
+    0% {
+      transform: scale(0);
+      opacity: 0;
+    }
+    60% {
+      transform: scale(1.1);
+      opacity: 1;
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+  .animate-bloom {
+    animation: bloom 0.5s ease-out forwards;
+  }
 }
