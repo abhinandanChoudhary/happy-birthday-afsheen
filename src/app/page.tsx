@@ -1,14 +1,12 @@
 'use client';
 
-import { useState, useTransition } from 'react';
-import { ArrowLeft, ArrowRight } from 'lucide-react';
+import { useState, useTransition, useEffect } from 'react';
 import AgeDisplay from '@/components/birthday/AgeDisplay';
 import BlowTheCandle from '@/components/birthday/BlowTheCandle';
 import ConfettiCanvas from '@/components/birthday/ConfettiCanvas';
 import HeartfeltAffirmations from '@/components/birthday/HeartfeltAffirmations';
 import Hero from '@/components/birthday/Hero';
 import PersonalizedMessage from '@/components/birthday/PersonalizedMessage';
-import { Button } from '@/components/ui/button';
 
 const sections = [
   { component: <Hero />, id: 'hero' },
@@ -18,19 +16,25 @@ const sections = [
   { component: <HeartfeltAffirmations />, id: 'affirmations' },
 ];
 
+const SECTION_INTERVAL = 7000; // 7 seconds
+
 export default function Home() {
   const [currentSection, setCurrentSection] = useState(0);
   const [isTransitioning, startTransition] = useTransition();
 
-  const navigate = (direction: 'next' | 'prev') => {
-    startTransition(() => {
-      if (direction === 'next') {
-        setCurrentSection(prev => (prev + 1) % sections.length);
-      } else {
-        setCurrentSection(prev => (prev - 1 + sections.length) % sections.length);
-      }
-    });
-  };
+  useEffect(() => {
+    // If it's not the last section, set a timer to go to the next one
+    if (currentSection < sections.length - 1) {
+      const timer = setTimeout(() => {
+        startTransition(() => {
+          setCurrentSection(prev => prev + 1);
+        });
+      }, SECTION_INTERVAL);
+
+      // Clear the timer if the component unmounts or the section changes
+      return () => clearTimeout(timer);
+    }
+  }, [currentSection]);
 
   const CurrentComponent = sections[currentSection].component;
 
@@ -39,35 +43,12 @@ export default function Home() {
       <ConfettiCanvas />
       <div className="relative min-h-dvh flex flex-col items-center justify-center overflow-hidden">
         
-        <div className={`w-full h-dvh flex items-center justify-center transition-opacity duration-500 ${isTransitioning ? 'opacity-0' : 'opacity-100'}`}>
+        <div className={`w-full h-dvh flex items-center justify-center transition-opacity duration-1000 ${isTransitioning ? 'opacity-0' : 'opacity-100'}`}>
             {CurrentComponent}
         </div>
 
-        {currentSection > 0 && (
-          <Button
-            variant="outline"
-            size="icon"
-            onClick={() => navigate('prev')}
-            className="absolute left-4 top-1/2 -translate-y-1/2 z-20 rounded-full h-12 w-12 bg-white/10 backdrop-blur-sm"
-            aria-label="Previous Section"
-          >
-            <ArrowLeft />
-          </Button>
-        )}
-
-        {currentSection < sections.length -1 && (
-             <Button
-             variant="outline"
-             size="icon"
-             onClick={() => navigate('next')}
-             className="absolute right-4 top-1/2 -translate-y-1/2 z-20 rounded-full h-12 w-12 bg-white/10 backdrop-blur-sm"
-             aria-label="Next Section"
-           >
-             <ArrowRight />
-           </Button>
-        )}
-         {currentSection === sections.length - 1 && (
-          <footer className="absolute bottom-8 text-center text-sm text-muted-foreground bg-transparent z-20">
+        {currentSection === sections.length - 1 && (
+          <footer className="absolute bottom-8 text-center text-sm text-muted-foreground bg-transparent z-20 transition-opacity duration-1000 opacity-100">
             Made with ❤️ for Afsheen.
           </footer>
         )}
