@@ -3,7 +3,7 @@
 import { useState, useMemo, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
-import { Wind, PartyPopper, Cake as CakeIcon } from 'lucide-react';
+import { Wind } from 'lucide-react';
 import Balloon from './Balloon';
 import BirthdayCard from './BirthdayCard';
 import { cn } from '@/lib/utils';
@@ -49,7 +49,7 @@ const Cake = () => (
   </div>
 );
 
-export default function BlowTheCandle() {
+export default function BlowTheCandle({ onCandlesBlown }: { onCandlesBlown: () => void }) {
   const [candles, setCandles] = useState(Array(17).fill(true));
   const [wishMade, setWishMade] = useState(false);
 
@@ -73,10 +73,14 @@ export default function BlowTheCandle() {
   useEffect(() => {
     if (allCandlesOut && !wishMade) {
       triggerConfettiBurst();
-      const timer = setTimeout(() => setWishMade(true), 500); // Short delay for flip
+      const timer = setTimeout(() => {
+        setWishMade(true);
+        // Delay calling the next section to allow card to flip
+        setTimeout(onCandlesBlown, 3000);
+      }, 500); // Short delay for flip
       return () => clearTimeout(timer);
     }
-  }, [allCandlesOut, wishMade]);
+  }, [allCandlesOut, wishMade, onCandlesBlown]);
 
   const handleBlowOut = () => {
     setCandles(Array(17).fill(false));
@@ -117,12 +121,12 @@ export default function BlowTheCandle() {
             {/* Front of the card - The Cake */}
             <div className="absolute w-full h-full backface-hidden">
                 <Card className="bg-card/80 backdrop-blur-sm shadow-lg min-h-[450px]">
-                    <CardContent className="p-4 sm:p-8 pt-10 flex flex-col items-center justify-center">
-                        <p className="text-muted-foreground mb-4 text-center font-body">
+                    <CardContent className="p-4 sm:p-6 flex flex-col items-center justify-between">
+                        <p className="text-muted-foreground mt-4 text-center font-body">
                             Click the candles or the button to make your birthday wish!
                         </p>
-                        <div className="relative mb-8 mt-10">
-                            <div className="relative flex items-end justify-center gap-1 w-full max-w-sm px-2 mb-2">
+                        <div className="relative my-4">
+                            <div className="relative flex items-end justify-center gap-0.5 w-full max-w-xs px-1 mb-2 scale-90">
                                 {candles.map((lit, index) => (
                                 <Candle
                                     key={index}

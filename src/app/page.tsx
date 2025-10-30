@@ -11,7 +11,7 @@ import WishingTree from '@/components/birthday/WishingTree';
 const sections = [
   { component: <Hero />, id: 'hero' },
   { component: <SurpriseAhead />, id: 'surprise' },
-  { component: <BlowTheCandle />, id: 'candle' },
+  { component: <BlowTheCandle onCandlesBlown={() => handleNextSection(2)} />, id: 'candle' },
   { component: <WishingTree />, id: 'tree' },
   { component: <HeartfeltAffirmations />, id: 'affirmations' },
 ];
@@ -65,14 +65,25 @@ const MagicalBackground = () => (
   </div>
 );
 
+let handleNextSection: (current: number) => void;
 
 export default function Home() {
   const [currentSection, setCurrentSection] = useState(0);
   const [isTransitioning, startTransition] = useTransition();
+  const candleSectionIndex = sections.findIndex(s => s.id === 'candle');
+
+  handleNextSection = (current: number) => {
+    if (current < sections.length - 1) {
+      startTransition(() => {
+        setCurrentSection(current + 1);
+      });
+    }
+  };
+
 
   useEffect(() => {
-    // If it's not the last section, set a timer to go to the next one
-    if (currentSection < sections.length - 1) {
+    // If it's not the last section, and not the candle section, set a timer to go to the next one
+    if (currentSection < sections.length - 1 && currentSection !== candleSectionIndex) {
       const timer = setTimeout(() => {
         startTransition(() => {
           setCurrentSection(prev => prev + 1);
@@ -82,7 +93,7 @@ export default function Home() {
       // Clear the timer if the component unmounts or the section changes
       return () => clearTimeout(timer);
     }
-  }, [currentSection]);
+  }, [currentSection, candleSectionIndex]);
 
   const CurrentComponent = sections[currentSection].component;
 
