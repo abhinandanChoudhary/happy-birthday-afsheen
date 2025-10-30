@@ -1,23 +1,23 @@
 import { Moon, Star } from 'lucide-react';
 
 const ShootingStar = () => (
-  <div className="absolute top-1/2 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-white to-transparent transform -rotate-45 animate-shooting-star" />
+  <div className="absolute top-1/2 left-0 w-0.5 h-64 bg-gradient-to-b from-transparent via-white to-transparent transform -rotate-45 animate-shooting-star" />
 );
 
 const Balloon = ({ className, color }: { className: string; color: string }) => (
   <div className={`absolute ${className}`}>
     <div
-      className={`w-20 h-24 rounded-full ${color} relative animate-balloon-float flex items-center justify-center`}
+      className={`w-20 h-24 rounded-full ${color} relative animate-balloon-float flex items-center justify-center shadow-lg`}
     >
       <div className={`w-2 h-4 ${color} brightness-75 rounded-b-full absolute -bottom-2`}></div>
     </div>
-    <div className="absolute bottom-0 left-1/2 w-px h-24 bg-white/30 transform -translate-x-1/2"></div>
+    <div className="absolute bottom-[-96px] left-1/2 w-px h-24 bg-white/30 transform -translate-x-1/2"></div>
   </div>
 );
 
 export default function Hero() {
   return (
-    <section className="relative text-center py-20 md:py-32 bg-background overflow-hidden min-h-[50vh]">
+    <section className="relative text-center py-20 md:py-32 bg-gradient-to-b from-blue-900 via-purple-900 to-slate-900 overflow-hidden min-h-[50vh]">
       {/* Background elements */}
       <div className="absolute inset-0 z-0">
         <Star className="absolute top-[10%] left-[10%] text-white/80 w-6 h-6 animate-twinkle" style={{ animationDelay: '0s' }} />
@@ -31,10 +31,10 @@ export default function Hero() {
       </div>
 
       {/* Balloons */}
-      <Balloon className="top-[5%] left-[5%]" color="bg-pink-400" />
-      <Balloon className="bottom-[10%] right-[10%]" color="bg-blue-400" />
-      <Balloon className="bottom-[20%] left-[20%]" color="bg-purple-400" />
-      <Balloon className="top-[10%] right-[30%]" color="bg-yellow-300" />
+      <Balloon className="top-[5%] left-[5%]" color="bg-pink-400/80" />
+      <Balloon className="bottom-[10%] right-[10%]" color="bg-blue-400/80" />
+      <Balloon className="bottom-[20%] left-[20%]" color="bg-purple-400/80" />
+      <Balloon className="top-[10%] right-[30%]" color="bg-yellow-300/80" />
 
       {/* Foreground content */}
       <div className="container mx-auto px-4 relative z-10">
