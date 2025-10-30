@@ -1,8 +1,7 @@
 'use client';
 
-import { useState } from 'react';
-import { useAIFlow } from '@genkit-ai/next';
-import { generateHeartfeltAffirmations } from '@/ai/flows/generate-heartfelt-affirmations';
+import { useState, useTransition } from 'react';
+import { getHeartfeltAffirmations } from '@/app/actions';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Sparkles, Loader2, HeartHandshake } from 'lucide-react';
@@ -17,41 +16,34 @@ import {
 
 export default function HeartfeltAffirmations() {
   const [affirmations, setAffirmations] = useState<string[]>([]);
-  const { run, running } = useAIFlow(generateHeartfeltAffirmations);
+  const [isPending, startTransition] = useTransition();
   const { toast } = useToast();
 
   const handleGenerate = async () => {
-    if (running) return;
+    if (isPending) return;
     setAffirmations([]);
-    try {
-      const affirmationsPromises = Array(3)
-        .fill(0)
-        .map(() =>
-          run({
-            name: 'Afsheen',
-            age: 17,
-            senderCrush: 'The sender of this card has a crush on her.',
-          })
-        );
-      const results = await Promise.all(affirmationsPromises);
-      const newAffirmations = results
-        .map(r => r?.affirmation)
-        .filter(Boolean) as string[];
-      if (newAffirmations.length > 0) {
-        setAffirmations(newAffirmations);
-      } else {
-        throw new Error('No affirmations generated.');
+
+    startTransition(async () => {
+      try {
+        const newAffirmations = await getHeartfeltAffirmations();
+        if (newAffirmations.length > 0) {
+          setAffirmations(newAffirmations);
+        } else {
+          throw new Error('No affirmations generated.');
+        }
+      } catch (error) {
+        console.error(error);
+        toast({
+          variant: 'destructive',
+          title: "Oops! Couldn't find the right words.",
+          description:
+            'There was a problem generating affirmations. Please try again.',
+        });
       }
-    } catch (error) {
-      console.error(error);
-      toast({
-        variant: 'destructive',
-        title: "Oops! Couldn't find the right words.",
-        description:
-          'There was a problem generating affirmations. Please try again.',
-      });
-    }
+    });
   };
+
+  const running = isPending;
 
   return (
     <section>

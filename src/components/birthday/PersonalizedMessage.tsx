@@ -1,8 +1,7 @@
 'use client';
 
-import { useState } from 'react';
-import { useAIFlow } from '@genkit-ai/next';
-import { generatePersonalizedMessage } from '@/ai/flows/generate-personalized-message';
+import { useState, useTransition } from 'react';
+import { getPersonalizedMessage } from '@/app/actions';
 import { Button } from '@/components/ui/button';
 import {
   Card,
@@ -16,33 +15,32 @@ import { useToast } from '@/hooks/use-toast';
 
 export default function PersonalizedMessage() {
   const [message, setMessage] = useState('');
-  const { run, running } = useAIFlow(generatePersonalizedMessage);
+  const [isPending, startTransition] = useTransition();
   const { toast } = useToast();
 
   const handleGenerate = async () => {
     setMessage('');
-    try {
-      const result = await run({
-        name: 'Afsheen',
-        age: 17,
-        senderFeelings:
-          'I have a crush on her and I want to express my admiration and best wishes in a heartfelt, but not overly intense way.',
-      });
-      if (result?.message) {
-        setMessage(result.message);
-      } else {
-        throw new Error('No message generated');
+    startTransition(async () => {
+      try {
+        const result = await getPersonalizedMessage();
+        if (result) {
+          setMessage(result);
+        } else {
+          throw new Error('No message generated');
+        }
+      } catch (error) {
+        console.error(error);
+        toast({
+          variant: 'destructive',
+          title: 'Oh no! Something went wrong.',
+          description:
+            'There was a problem generating your message. Please try again.',
+        });
       }
-    } catch (error) {
-      console.error(error);
-      toast({
-        variant: 'destructive',
-        title: 'Oh no! Something went wrong.',
-        description:
-          'There was a problem generating your message. Please try again.',
-      });
-    }
+    });
   };
+
+  const running = isPending;
 
   return (
     <section>
