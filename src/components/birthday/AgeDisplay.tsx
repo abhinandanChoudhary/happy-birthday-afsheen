@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Calendar, Clock } from 'lucide-react';
+import Balloon from './Balloon';
 
 interface Age {
   years: number;
@@ -68,7 +69,17 @@ export default function AgeDisplay({ dob }: { dob: string }) {
   }, [dob]);
 
   return (
-    <section>
+    <section className="relative w-full px-4">
+       <Balloon
+        color="hsl(var(--secondary) / 0.7)"
+        className="top-[15%] -left-[5%] w-28 h-auto"
+        style={{ animationDelay: '0s' }}
+      />
+      <Balloon
+        color="hsl(var(--primary) / 0.8)"
+        className="bottom-[10%] -right-[5%] w-32 h-auto"
+        style={{ animationDelay: '2s' }}
+      />
       <h2 className="font-headline text-3xl md:text-4xl text-center mb-8">
         A Journey Through Time
       </h2>

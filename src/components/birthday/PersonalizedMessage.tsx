@@ -12,6 +12,8 @@ import {
 } from '@/components/ui/card';
 import { MessageSquareHeart, Loader2 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import Balloon from './Balloon';
+
 
 export default function PersonalizedMessage() {
   const [message, setMessage] = useState('');
@@ -43,7 +45,17 @@ export default function PersonalizedMessage() {
   const running = isPending;
 
   return (
-    <section>
+    <section className="relative w-full px-4">
+      <Balloon
+        color="hsl(var(--accent) / 0.6)"
+        className="bottom-[20%] -left-[10%] w-36 h-auto"
+        style={{ animationDelay: '1.5s' }}
+      />
+       <Balloon
+        color="hsl(var(--primary) / 0.7)"
+        className="top-[15%] -right-[8%] w-28 h-auto"
+        style={{ animationDelay: '3.5s' }}
+      />
       <h2 className="font-headline text-3xl md:text-4xl text-center mb-8">
         A Message Just For You
       </h2>

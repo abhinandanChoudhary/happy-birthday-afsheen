@@ -12,6 +12,7 @@ import {
   CarouselContent,
   CarouselItem,
 } from '@/components/ui/carousel';
+import Balloon from './Balloon';
 
 export default function HeartfeltAffirmations() {
   const [affirmations, setAffirmations] = useState<string[]>([]);
@@ -47,7 +48,17 @@ export default function HeartfeltAffirmations() {
   const running = isPending;
 
   return (
-    <section>
+    <section className="relative w-full px-4">
+       <Balloon
+        color="hsl(var(--primary) / 0.7)"
+        className="top-[5%] left-[2%] w-24 h-auto"
+        style={{ animationDelay: '1s' }}
+      />
+      <Balloon
+        color="hsl(var(--accent) / 0.8)"
+        className="top-[10%] right-[5%] w-32 h-auto"
+        style={{ animationDelay: '3s' }}
+      />
       <h2 className="font-headline text-3xl md:text-4xl text-center mb-8">
         Your Daily Dose of Sparkle
       </h2>
