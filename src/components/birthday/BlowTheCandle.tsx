@@ -16,16 +16,16 @@ const Candle = ({
   number: number;
 }) => (
   <div
-    className="relative w-4 h-16 bg-rose-200 rounded-t-sm mx-auto cursor-pointer group flex items-center justify-center"
+    className="relative w-3 h-12 bg-rose-200 rounded-t-sm mx-auto cursor-pointer group flex items-center justify-center"
     onClick={onClick}
   >
-    <span className="text-pink-600 font-bold text-xs">{number}</span>
+    <span className="text-pink-600 font-bold text-xs scale-75">{number}</span>
     {/* Wick */}
     <div className="absolute -top-2 left-1/2 -translate-x-1/2 w-0.5 h-2 bg-slate-600"></div>
 
     {/* Flame */}
     {lit && (
-      <div className="absolute -top-8 left-1/2 -translate-x-1/2 w-6 h-8">
+      <div className="absolute -top-7 left-1/2 -translate-x-1/2 w-5 h-7">
         <div className="w-full h-full bg-amber-400 rounded-t-full rounded-b-full blur-sm animate-flicker scale-75"></div>
       </div>
     )}
@@ -38,11 +38,11 @@ const Candle = ({
 );
 
 const BirthdayCake = () => (
-  <div className="relative w-full max-w-lg h-32 bg-pink-200 rounded-lg shadow-md flex items-center justify-center">
+  <div className="relative w-full max-w-sm h-28 bg-pink-200 rounded-lg shadow-md flex items-center justify-center">
     <div className="absolute -bottom-4 w-full h-8 bg-pink-300 rounded-b-lg"></div>
     <div className="absolute top-1/2 left-0 w-full h-4 bg-pink-100/50 -translate-y-1/2"></div>
     <div className="absolute inset-0 flex items-center justify-center">
-      <span className="text-3xl font-headline text-pink-600 drop-shadow-sm">Afsheen 🎊🎉</span>
+      <span className="text-2xl font-headline text-pink-600 drop-shadow-sm">Afsheen 🎊🎉</span>
     </div>
   </div>
 );
@@ -106,7 +106,7 @@ export default function BlowTheCandle() {
                 Click the candles or the button to make your birthday wish!
               </p>
               <div className="relative mb-8 mt-10">
-                <div className="relative flex items-end justify-center gap-2.5 w-full max-w-lg px-2 mb-2">
+                <div className="relative flex items-end justify-center gap-1.5 w-full max-w-sm px-2 mb-2">
                   {candles.map((lit, index) => (
                     <Candle
                       key={index}
