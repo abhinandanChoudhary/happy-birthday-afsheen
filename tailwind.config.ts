@@ -14,6 +14,7 @@ export default {
         headline: ['Great Vibes', 'cursive'],
         code: ['monospace'],
         bubble: ['"Fredoka One"', 'cursive'],
+        countdown: ['Orbitron', 'sans-serif'],
       },
       colors: {
         background: 'hsl(var(--background))',

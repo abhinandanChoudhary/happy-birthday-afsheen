@@ -1,7 +1,12 @@
 import Balloon from './Balloon';
 import { Button } from '@/components/ui/button';
+import BirthdayCountdown from './BirthdayCountdown';
 
 export default function Hero({ onBegin }: { onBegin: () => void }) {
+  // Set the target birthday date.
+  // Note: Months are 0-indexed (0 = January, 1 = February, etc.)
+  const birthday = new Date(new Date().getFullYear(), 7, 25); // August 25th
+
   return (
     <section className="relative text-center py-20 md:py-32 overflow-hidden min-h-[50vh] w-full flex flex-col items-center justify-center">
       {/* Foreground content */}
@@ -12,6 +17,9 @@ export default function Hero({ onBegin }: { onBegin: () => void }) {
         <p className="mt-4 font-body text-lg text-secondary">
           A special journey just for you...
         </p>
+        
+        <BirthdayCountdown targetDate={birthday} />
+
         <Button onClick={onBegin} size="lg" className="mt-8 animate-pulse">
           tap here to begin 🐼
         </Button>
