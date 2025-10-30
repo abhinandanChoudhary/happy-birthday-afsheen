@@ -16,7 +16,7 @@ const sections = [
   { component: <HeartfeltAffirmations />, id: 'affirmations' },
 ];
 
-const SECTION_INTERVAL = 7000; // 7 seconds
+const SECTION_INTERVAL = 5000; // 5 seconds
 
 const MagicalBackground = () => (
   <div className="absolute inset-0 z-0 overflow-hidden bg-gradient-to-br from-background to-purple-900/80">

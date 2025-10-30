@@ -102,7 +102,7 @@ export default function BlowTheCandle({ onCandlesBlown }: { onCandlesBlown: () =
   };
 
   return (
-    <section className="w-full px-4 relative flex flex-col justify-center">
+    <section className="w-full px-4 relative flex flex-col items-center justify-center">
       <Balloon
         color="hsl(var(--primary) / 0.7)"
         className="top-[5%] left-[2%] w-24 h-auto"
@@ -120,7 +120,7 @@ export default function BlowTheCandle({ onCandlesBlown }: { onCandlesBlown: () =
         <div className={cn("relative w-full transition-transform duration-1000 transform-style-3d", wishMade && "rotate-y-180")}>
             {/* Front of the card - The Cake */}
             <div className="absolute w-full h-full backface-hidden">
-                <Card className="bg-card/80 backdrop-blur-sm shadow-lg">
+                <Card className="bg-card/80 backdrop-blur-sm shadow-lg flex flex-col justify-center">
                     <CardContent className="p-4 sm:p-6 flex flex-col items-center justify-around h-full">
                         <p className="text-muted-foreground mt-2 text-center font-body">
                             Click the candles or the button to make your birthday wish!
