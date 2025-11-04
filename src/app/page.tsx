@@ -6,7 +6,6 @@ import SurpriseAhead from '@/components/birthday/SurpriseAhead';
 import BlowTheCandle from '@/components/birthday/BlowTheCandle';
 import ConfettiCanvas from '@/components/birthday/ConfettiCanvas';
 import HeartfeltAffirmations from '@/components/birthday/HeartfeltAffirmations';
-import WishingTree from '@/components/birthday/WishingTree';
 
 const MagicalBackground = () => (
     <div className="absolute inset-0 z-0 overflow-hidden bg-gradient-to-br from-background to-purple-900/80">
@@ -59,6 +58,7 @@ const MagicalBackground = () => (
 export default function Home() {
   const [currentSection, setCurrentSection] = useState(0);
   const [isTransitioning, startTransition] = useTransition();
+  const [direction, setDirection] = useState<'up' | 'down'>('down');
   const audioRef = useRef<HTMLAudioElement>(null);
   const [hasInteracted, setHasInteracted] = useState(false);
 
@@ -66,12 +66,12 @@ export default function Home() {
     { component: Hero, id: 'hero' },
     { component: SurpriseAhead, id: 'surprise' },
     { component: BlowTheCandle, id: 'candle' },
-    { component: WishingTree, id: 'tree' },
     { component: HeartfeltAffirmations, id: 'affirmations' },
   ];
 
   const handleNextSection = useCallback(() => {
     startTransition(() => {
+      setDirection('down');
       setCurrentSection(prev => {
         if (prev < sections.length - 1) {
           return prev + 1;
@@ -80,6 +80,18 @@ export default function Home() {
       });
     });
   }, [sections.length]);
+
+  const handlePrevSection = useCallback(() => {
+    startTransition(() => {
+      setDirection('up');
+      setCurrentSection(prev => {
+        if (prev > 0) {
+          return prev - 1;
+        }
+        return prev;
+      });
+    });
+  }, []);
 
   const handleBegin = () => {
     if (!hasInteracted) {
@@ -96,8 +108,7 @@ export default function Home() {
   useEffect(() => {
     const currentSectionId = sections[currentSection].id;
     
-    // Only apply timer for 'surprise' and 'tree' sections
-    if (currentSectionId === 'surprise' || currentSectionId === 'tree') {
+    if (currentSectionId === 'surprise') {
       const timer = setTimeout(() => {
         handleNextSection();
       }, SECTION_INTERVAL);
@@ -114,7 +125,13 @@ export default function Home() {
   }
   if (sections[currentSection].id === 'candle') {
     props.onCandlesBlown = handleNextSection;
+    props.onReset = handlePrevSection; // Go back to surprise
   }
+
+  const animationClass = isTransitioning
+    ? direction === 'down' ? 'animate-slide-out-up' : 'animate-slide-out-down'
+    : 'animate-slide-in';
+
 
   return (
     <>
@@ -125,7 +142,7 @@ export default function Home() {
       <ConfettiCanvas />
       <div className="relative min-h-dvh flex flex-col items-center justify-center overflow-hidden">
         <MagicalBackground />
-        <div className={`relative z-10 w-full h-dvh flex items-center justify-center transition-opacity duration-1000 ${isTransitioning ? 'opacity-0' : 'opacity-100'}`}>
+        <div className={`relative z-10 w-full h-dvh flex items-center justify-center ${animationClass}`}>
             <CurrentComponent {...props} />
         </div>
 
