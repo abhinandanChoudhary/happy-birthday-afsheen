@@ -86,7 +86,7 @@ export default function Home() {
       setDirection('up');
       setCurrentSection(prev => {
         if (prev > 0) {
-          return prev - 1;
+          return prev + 1;
         }
         return prev;
       });
@@ -125,7 +125,7 @@ export default function Home() {
   }
   if (sections[currentSection].id === 'candle') {
     props.onCandlesBlown = handleNextSection;
-    props.onReset = handlePrevSection; // Go back to surprise
+    props.onReset = handlePrevSection;
   }
 
   const animationClass = isTransitioning
