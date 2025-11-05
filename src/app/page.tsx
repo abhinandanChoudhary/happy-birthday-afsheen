@@ -100,7 +100,7 @@ export default function Home() {
       setDirection('up');
       setCurrentSection(prev => {
         if (prev > 0) {
-          return prev + 1;
+          return prev - 1;
         }
         return prev;
       });
@@ -133,7 +133,7 @@ export default function Home() {
     if (currentSection === sections.length - 1) {
       const timer = setTimeout(() => {
         audioRef.current?.pause();
-      }, 5000);
+      }, 10000);
       return () => clearTimeout(timer);
     }
   }, [currentSection, handleNextSection, sections]);
