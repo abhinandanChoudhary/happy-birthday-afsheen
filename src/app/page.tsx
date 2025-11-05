@@ -129,6 +129,13 @@ export default function Home() {
 
       return () => clearTimeout(timer);
     }
+    
+    if (currentSection === sections.length - 1) {
+      const timer = setTimeout(() => {
+        audioRef.current?.pause();
+      }, 5000);
+      return () => clearTimeout(timer);
+    }
   }, [currentSection, handleNextSection, sections]);
   
   const CurrentComponent = sections[currentSection].component;
